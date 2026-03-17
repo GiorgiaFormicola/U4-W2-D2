@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -13,11 +14,12 @@ public class Main {
     private static List<Integer> getRandomNumbersList(int N) {
         Random random = new Random();
         List<Integer> randomNumbersList = new ArrayList<>();
-        if (N < 0) throw new RuntimeException("Impossible to provide a list of " + N + " numbers");
+        if (N <= 0) throw new RuntimeException("Impossible to provide a list of " + N + " numbers");
         else {
             for (int i = 0; i < N; i++) {
-                randomNumbersList.add(random.nextInt(0, 100));
+                randomNumbersList.add(random.nextInt(0, 101));
             }
+            Collections.sort(randomNumbersList);
             return randomNumbersList;
         }
     }
@@ -28,7 +30,7 @@ public class Main {
         return finalList;
     }
 
-    private static <T> void getEvenOrUnevenListElements(List<T> list, boolean aBoolean) {
+   /* private static <T> void getEvenOrUnevenListElements(List<T> list, boolean aBoolean) {
         List<T> evenElements = new ArrayList<>();
         List<T> unevenElements = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -43,6 +45,19 @@ public class Main {
         } else {
             System.out.println("Uneven elements of the list: " + unevenElements);
         }
+    }*/
+
+    private static <T> void getEvenOrUnevenListElements(List<T> list, boolean aBoolean) {
+        int startingIndex = aBoolean ? 0 : 1;
+        System.out.print(startingIndex == 0 ? "Even elements of the list: [" : "Uneven elements of the list: [");
+        for (int i = startingIndex; i < list.size(); i += 2) {
+            if (i == list.size() - 2 || i == list.size() - 1) {
+                System.out.print(list.get(i) + "]\n");
+            } else {
+                System.out.print(list.get(i) + ", ");
+            }
+        }
+        ;
     }
 
     static void main(String[] args) {
